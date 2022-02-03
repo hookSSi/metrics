@@ -105,10 +105,17 @@ jobs:
         key: ${{ runner.os }}-py${{ matrix.python-version }}-td${{ steps.times.outputs.period }}-pip-${{ hashFiles('requirements.txt') }}
         restore-keys: ${{ runner.os }}-py${{ matrix.python-version }}-td${{ steps.times.outputs.period }}-pip-
 
-    - name: Install dependencies
+    - name: Install base dependencies
       run: |
         pip --version
         pip install --requirement requirements.txt --upgrade --find-links $PYTORCH_URL
+
+    - name: Freeze Numpy (hotfix)
+      if: matrix.requires == 'latest'
+      run: pip install -q "numpy==1.20.0"  # temp hotfix for cypesq
+
+    - name: Install all dependencies
+      run: |
         python ./requirements/adjust-versions.py requirements.txt
         python ./requirements/adjust-versions.py requirements/image.txt
         pip install --requirement requirements/devel.txt --upgrade --find-links $PYTORCH_URL
