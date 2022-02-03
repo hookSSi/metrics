@@ -12,6 +12,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-${{ github.head_ref }}
   cancel-in-progress: ${{ ! (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/release/')) }}
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   # ToDo: consider unifying in a single workflow and distributing outputs to all others depending ones
   check-diff:
@@ -120,7 +124,6 @@ jobs:
         python ./requirements/adjust-versions.py requirements/image.txt
         pip install --requirement requirements/devel.txt --upgrade --find-links $PYTORCH_URL
         pip list
-      shell: bash
 
     - name: HF cache
       uses: actions/cache@v2
