@@ -51,7 +51,7 @@ def _sk_pearsonr(preds, target):
     ],
 )
 class TestPearsonCorrCoef(MetricTester):
-    atol = 0.02
+    atol = 0.05
 
     @pytest.mark.parametrize("ddp", [True, False])
     def test_pearson_corrcoef(self, preds, target, ddp):

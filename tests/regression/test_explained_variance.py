@@ -62,7 +62,7 @@ def _multi_target_sk_metric(preds, target, sk_fn=explained_variance_score):
     ],
 )
 class TestExplainedVariance(MetricTester):
-    atol: float = 1e-7
+    atol: float = 1e-6
 
     @pytest.mark.parametrize("ddp", [True, False])
     @pytest.mark.parametrize("dist_sync_on_step", [True, False])
