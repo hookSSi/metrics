@@ -34,7 +34,7 @@ except RuntimeError:
 
 NUM_PROCESSES = 2
 NUM_BATCHES = 10
-BATCH_SIZE = 32 if torch.cuda.is_available() else 8
+BATCH_SIZE = 64 if torch.cuda.is_available() else 16
 NUM_CLASSES = 5
 EXTRA_DIM = 3
 THRESHOLD = 0.5
